@@ -71,37 +71,31 @@ A single onboarding request automatically:
 
 ---
 
-## 📂 Project Structure
-
-text hr-assistant/ ├── agents/ │   └── hr_agent.py ├── tools/ │   └── mcp_tools.py ├── database/ │   ├── db_setup.py │   └── hr_database.db ├── ui/ │   └── app.py ├── .env ├── main.py ├── pyproject.toml └── README.md 
-
----
-
 ## 🧪 Testing the Agent
 
 The application includes a Reset Database option in the sidebar, allowing testers to restore the system to a clean state before running demonstrations.
 
 ### Employee Prompts
 
-text What is the WFH policy? 
+ What is the WFH policy? 
 
-text Apply for leave starting next Monday for 3 days due to sickness. 
+ Apply for leave starting next Monday for 3 days due to sickness. 
 
-text Show my leave history. 
+ Show my leave history. 
 
-text Create a support ticket because my laptop is not working. 
+ Create a support ticket because my laptop is not working. 
 
 ### HR Admin Prompts
 
-text Onboard a new employee named Alice Johnson as a UX Designer. 
+ Onboard a new employee named Alice Johnson as a UX Designer. 
 
-text Fetch the leave history for Bob. 
+ Fetch the leave history for Bob. 
 
-text Update ticket ID 1 to Resolved. 
+ Update ticket ID 1 to Resolved. 
 
-text Show ticket analytics for the organization. 
+ Show ticket analytics for the organization. 
 
-text How many employees are currently on leave? 
+ How many employees are currently on leave? 
 
 ---
 
