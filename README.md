@@ -1,121 +1,133 @@
 # 🌟 Agentic-HR-Assistant
 
-An intelligent, autonomous Human Resources automation agent built with **LangGraph**, **Groq**, and **Python**. Aura handles natural language HR requests, extracts structured entities, and executes workflows like leave management, employee onboarding, IT ticket routing, and interview scheduling using advanced LLM tool-calling.
-
-## 🚀 Key Features
-
-### 🧠 Agentic AI Capabilities
-* **Stateful Conversations:** Built on **LangGraph**, the agent remembers context across multiple turns (e.g., if you mention a leave reason, it will only ask for the missing dates).
-* **Autonomous Tool Routing:** Utilizes `llama-3.3-70b-versatile` to intelligently select and execute the correct database tools based on user intent.
-* **Missing Information Detection:** Automatically pauses workflows to politely ask the user for required parameters if they are missing from the initial prompt.
-
-### 💼 Automated Workflows
-* **Leave Management:** Logs employee time-off and retrieves historical leave records.
-* **Smart Ticketing:** Classifies user complaints autonomously into `payroll`, `technical`, `leave`, or `onboarding` buckets.
-* **Onboarding & Scheduling:** Creates new employee profiles and schedules interviews via natural language datetime extraction.
-
-### 🖥️ Frontend & Dashboard
-* **Glassmorphism UI:** A sleek, modern chat interface built with Streamlit and custom CSS.
-* **Live Admin Dashboard:** A dedicated secondary tab that queries the SQLite database in real-time, allowing admins to view all generated records in interactive dataframes.
+An intelligent, enterprise-style Human Resources automation platform built with LangChain, LangGraph, Groq, Streamlit, and SQLite. The system combines conversational AI, role-based access control, autonomous workflow execution, and real-time analytics to streamline HR operations such as onboarding, leave management, ticket handling, employee support, and organizational reporting.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Main Features
 
-* **Framework:** LangGraph / LangChain
-* **LLM Provider:** Groq (`llama-3.3-70b-versatile` for high-speed, high-accuracy tool calling)
-* **Frontend:** Streamlit
-* **Database:** SQLite3
-* **Package Manager:** `uv` (Lightning-fast Python environment management)
+### 🔐 Role-Based Access Control (RBAC)
+- Secure separation between Employee and HR Admin environments.
+- Employees can access self-service HR functionalities.
+- HR Administrators gain access to organization-wide management tools, dashboards, and analytics.
+
+### 🤖 Intelligent Conversational Agent
+- Powered by LangChain, LangGraph, and Groq Llama models.
+- Understands natural language queries and converts them into database actions.
+- Supports contextual conversations and multi-step reasoning.
+
+### ⚡ Complex Agentic Workflows
+
+#### Smart Employee Onboarding
+A single onboarding request automatically:
+- Creates an employee profile.
+- Generates IT provisioning tickets.
+- Triggers payroll setup workflows.
+- Executes multiple tasks concurrently through agentic orchestration.
+
+#### Context-Aware Leave Management
+- Processes leave requests intelligently.
+- Detects department coverage conflicts.
+- Warns HR when multiple employees from the same team are already on leave.
+- Helps maintain workforce availability before approving requests.
+
+### 📊 Dynamic Data Center
+- Live SQLite database integration.
+- Real-time employee, leave, onboarding, and ticket records.
+- Interactive Streamlit tables powered by Pandas.
+- Dashboard metric cards for quick organizational insights.
+
+### 🛡️ Defensive Tool Calling
+- Built-in validation and error handling.
+- Self-correcting agent workflows.
+- Safe execution of CRUD database operations.
+- Reduced risk of invalid updates or data corruption.
+
+### 📈 System Analytics
+- Automated visual reports and dashboards.
+- Ticket status analytics.
+- Leave request trend analysis.
+- Interactive charts and organizational metrics.
+
+### 💎 Modern Enterprise UI
+- Built using Streamlit with custom styling.
+- Clean dashboard experience.
+- Interactive chat interface for natural HR interactions.
+
+---
+
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|-----------|-------------|
+| Frontend / UI | Streamlit, Custom Enterprise CSS |
+| AI Orchestration | LangChain, LangGraph, React Agents |
+| LLM Provider | Groq (Llama-3.1-8B, Llama-3-70B) |
+| Database | SQLite3 |
+| Data Processing | Pandas |
+| Visualization | Matplotlib |
+| Backend Language | Python |
+| Agent Features | Tool Calling, Multi-Step Workflows, State Management |
 
 ---
 
 ## 📂 Project Structure
 
-```text
-hr-assistant/
-├── agents/
-│   └── hr_agent.py       # LangGraph React Agent and prompt engineering
-├── tools/
-│   └── mcp_tools.py      # Python tools for DB execution (Leave, Tickets, etc.)
-├── database/
-│   ├── db_setup.py       # SQLite schema initialization
-│   └── hr_database.db    # Auto-generated database file
-├── ui/
-│   └── app.py            # Streamlit Dual-Tab Frontend (Chat & Dashboard)
-├── .env                  # Environment variables (Groq API Key)
-├── main.py               # Application entry point
-├── pyproject.toml        # Modern uv dependency management
-└── README.md
-
-```
+text hr-assistant/ ├── agents/ │   └── hr_agent.py ├── tools/ │   └── mcp_tools.py ├── database/ │   ├── db_setup.py │   └── hr_database.db ├── ui/ │   └── app.py ├── .env ├── main.py ├── pyproject.toml └── README.md 
 
 ---
 
-## ⚙️ Installation & Setup
+## 🧪 Testing the Agent
 
-This project uses [uv](https://github.com/astral-sh/uv) for modern, fast dependency management.
+The application includes a Reset Database option in the sidebar, allowing testers to restore the system to a clean state before running demonstrations.
 
-**1. Install `uv` (macOS/Linux):**
+### Employee Prompts
 
-```bash
-curl -LsSf [https://astral.sh/uv/install.sh](https://astral.sh/uv/install.sh) | sh
-# OR using Homebrew: brew install uv
+text What is the WFH policy? 
 
-```
+text Apply for leave starting next Monday for 3 days due to sickness. 
 
-**2. Clone the repository:**
+text Show my leave history. 
 
-```bash
-git clone [https://github.com/yourusername/hr-assistant.git](https://github.com/yourusername/hr-assistant.git)
-cd hr-assistant
+text Create a support ticket because my laptop is not working. 
 
-```
+### HR Admin Prompts
 
-**3. Set up your environment variables:**
-Create a `.env` file in the root directory and add your Groq API key:
+text Onboard a new employee named Alice Johnson as a UX Designer. 
 
-```env
-GROQ_API_KEY=your_actual_api_key_here
+text Fetch the leave history for Bob. 
 
-```
+text Update ticket ID 1 to Resolved. 
 
-**4. Run the application:**
-`uv` will automatically resolve dependencies, create an isolated environment, and launch the app in one command:
+text Show ticket analytics for the organization. 
 
-```bash
-uv run main.py
-
-```
+text How many employees are currently on leave? 
 
 ---
 
-## 🧪 Example Prompts to Test
+## 🚀 Future Enhancements
 
-Once the Streamlit UI is running, try pasting these prompts to test the agent's capabilities:
-
-### The "Happy Paths" (Complete Information)
-
-* *"Onboard a new employee named Ujjwal Asati as a Backend Developer."*
-* *"Apply for 5 days of leave for Kaushik due to a family trip."*
-* *"Schedule an interview with Aryan Hundia for next Wednesday at 2:00 PM."*
-* *"Show me the leave history for Kaushik."*
-
-### The "Edge Cases" (Testing Agent Memory & Logic)
-
-* **Intent Classification:** *"My salary for last month hasn't been credited to my bank account yet."* (Agent should automatically create a `payroll` ticket).
-* **Missing Parameters:** *"I need to set up an interview with a candidate named Vishnu."* (Agent should pause and ask what day/time you want to schedule it for).
-* **Contextual Memory:** 1. *"I need to apply for leave because of a migraine."*
-2. *"Just 2 days, and my name is Kaushik."* (Agent should combine both messages and execute the tool).
+- RAG-powered Employee Policy Assistant.
+- Email and Calendar Integration.
+- Multi-Agent HR Ecosystem.
+- Department-Level Workforce Forecasting.
+- Predictive Leave Analytics.
+- Cloud Database Support (PostgreSQL/MySQL).
+- Authentication and Enterprise SSO.
 
 ---
 
-## 🔮 Future Roadmap
+## 📸 Demo
 
-* [ ] **RAG Integration:** Connect to a vector database to allow the bot to answer questions based on a PDF Employee Handbook.
-* [ ] **Multi-Agent Architecture:** Split the main agent into a Supervisor Router, a Payroll Specialist, and an IT Support Specialist.
-* [ ] **Email Automation:** Integrate SendGrid to send actual calendar invites when the scheduling tool is triggered.
+Run the application locally and explore both Employee and HR Admin modes.
 
-```
+The platform demonstrates how modern AI agents can automate complex HR operations while maintaining security, reliability, and real-time visibility across organizational workflows
 
-```
+---
+
+## 👨‍💻 Author
+
+**Ch Sai Kaushik**  
+B.Tech CSE (Data Science), VIT Vellore
+
+⭐ If you found this project useful, consider giving it a star on GitHub.
