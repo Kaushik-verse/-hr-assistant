@@ -11,7 +11,6 @@ def init_db():
     cursor.execute('''CREATE TABLE IF NOT EXISTS employees (
         id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, role TEXT NOT NULL)''')
 
-    # UPDATED: Added start_date for conflict detection
     cursor.execute('''CREATE TABLE IF NOT EXISTS leaves (
         id INTEGER PRIMARY KEY AUTOINCREMENT, employee_name TEXT NOT NULL, start_date TEXT, days INTEGER, reason TEXT, status TEXT DEFAULT 'Pending')''')
 
